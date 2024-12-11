@@ -1,0 +1,24 @@
+Table Walkers {
+    id int [pk] 
+    name varchar
+}
+Table Dogs {
+    id int [pk]
+    name varchar
+    walkerId int [ref: > Walkers.id]
+    cityId int [ref: > Cities.id]
+    breedId int [ref: > Breeds.id]
+}
+Table Cities {
+    id int [pk]
+    name varchar
+}
+Table WalkerCities {
+    id int [pk]
+    walkerId int [ref: > Walkers.id]
+    cityId int [ref: > Cities.id]
+}
+Table Breeds {
+    id int [pk]
+    Type varchar
+}

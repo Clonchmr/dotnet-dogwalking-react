@@ -174,5 +174,40 @@ app.MapGet("/api/hello", () =>
     return new { Message = "Welcome to DeShawn's Dog Walking" };
 });
 
+app.MapGet("/api/dogs", () =>
+{
+    
+    return dogs.Select(d => 
+    {
+        Walker dogWalker = walkers.FirstOrDefault(w => w.Id == d.WalkerId);
+        City dogCity = cities.FirstOrDefault(c => c.Id == d.CityId);
+        Breed dogBreed = breeds.FirstOrDefault(b => b.Id == d.BreedId);
+
+        return new DogDTO
+        {
+        Id = d.Id,
+        Name = d.Name,
+        WalkerId = d.WalkerId,
+        Walker = new WalkerDTO
+        {
+            Id = dogWalker.Id,
+            Name = dogWalker.Name
+        },
+        CityId = d.CityId,
+        City = new CityDTO
+        {
+            Id = dogCity.Id,
+            Name = dogCity.Name
+        },
+        BreedId = d.BreedId,
+        Breed = new BreedDTO
+        {
+            Id = dogBreed.Id,
+            Type = dogBreed.Type
+        }
+        };
+    });
+});
+
 
 app.Run();

@@ -3,6 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 import { Outlet } from "react-router-dom";
+import { AllDogs } from "./Components/AllDogs";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           </Nav>
         </Navbar>
         <Outlet />
+        <AllDogs />
       </>
     </div>
   );

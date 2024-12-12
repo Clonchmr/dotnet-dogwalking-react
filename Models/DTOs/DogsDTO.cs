@@ -7,5 +7,7 @@ public class DogDTO
     public int WalkerId { get; set; }
     public WalkerDTO Walker { get; set; }
     public int CityId { get; set; }
+    public CityDTO City { get; set; }
     public int BreedId { get; set; }
+    public BreedDTO Breed { get; set; }
 }

@@ -1,24 +1,38 @@
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { AllDogs } from "./Components/AllDogs";
+import { NavBar } from "./Components/Navbar/NavBar";
+import Home from "./Home";
+import { DogDetails } from "./Components/DogDetails";
 
 function App() {
   return (
     <div className="App">
       <>
-        <Navbar color="light" expand="md">
-          <Nav navbar>
-            <NavbarBrand href="/">🐕‍🦺 🐩 DeShawn's Dog Walking</NavbarBrand>
-            <NavItem>
-              <NavLink href="/walkers">Walkers</NavLink>
-            </NavItem>
-          </Nav>
-        </Navbar>
-        <Outlet />
-        <AllDogs />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <NavBar />
+                <Outlet />
+              </>
+            }
+          >
+            <Route
+              index
+              element={
+                <>
+                  <Home />
+                  <AllDogs />
+                </>
+              }
+            />
+            <Route path="dogdetails/:dogId" element={<DogDetails />} />
+          </Route>
+        </Routes>
       </>
     </div>
   );

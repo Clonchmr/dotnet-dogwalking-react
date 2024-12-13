@@ -9,33 +9,43 @@ export const AllDogs = () => {
 
   useEffect(() => {
     getDogs().then(setAllDogs);
-  }, []);
+  }, [allDogs.length]);
 
   const navigate = useNavigate();
 
   return (
-    <div className="container dog-cards-container">
-      {allDogs.map((dog) => {
-        return (
-          <Card key={dog.id} className="dogCard">
-            <CardBody>
-              <CardTitle
-                className="mb-4"
-                tag="h5"
-                onClick={() => {
-                  navigate(`/dogdetails/${dog.id}`);
-                }}
-              >
-                {dog.name}
-              </CardTitle>
-              <CardSubtitle className="mb-4 text-muted" tag="h6">
-                {dog.breed.type}
-              </CardSubtitle>
-              <Button>Remove Dog</Button>
-            </CardBody>
-          </Card>
-        );
-      })}
+    <div className="container">
+      <Button
+        className="add-dog-btn"
+        onClick={() => {
+          navigate("/add-dog");
+        }}
+      >
+        Add Dog
+      </Button>
+      <div className="dog-cards-container">
+        {allDogs.map((dog) => {
+          return (
+            <Card key={dog.id} className="dogCard">
+              <CardBody>
+                <CardTitle
+                  className="mb-4"
+                  tag="h5"
+                  onClick={() => {
+                    navigate(`/dogdetails/${dog.id}`);
+                  }}
+                >
+                  {dog.name}
+                </CardTitle>
+                <CardSubtitle className="mb-4 text-muted" tag="h6">
+                  {dog.breed.type}
+                </CardSubtitle>
+                <Button className="delete-dog-btn">Remove Dog</Button>
+              </CardBody>
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };

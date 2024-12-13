@@ -188,7 +188,7 @@ app.MapGet("/api/dogs", () =>
         Id = d.Id,
         Name = d.Name,
         WalkerId = d.WalkerId,
-        Walker = new WalkerDTO
+        Walker = d.WalkerId == null ? null : new WalkerDTO
         {
             Id = dogWalker.Id,
             Name = dogWalker.Name
@@ -227,7 +227,7 @@ app.MapGet("/api/dogs/{id}", (int id) =>
             Id = selectedDog.Id,
             Name = selectedDog.Name,
             WalkerId = selectedDog.WalkerId,
-            Walker = new WalkerDTO
+            Walker = selectedDog.WalkerId == null ? null : new WalkerDTO
             {
                 Id = dogWalker.Id,
                 Name = dogWalker.Name
@@ -246,6 +246,51 @@ app.MapGet("/api/dogs/{id}", (int id) =>
             }
         }
     );
+});
+
+app.MapGet("/api/breeds", () =>
+{
+    return breeds.Select(b => new BreedDTO
+    {
+        Id = b.Id,
+        Type = b.Type
+    });
+});
+
+app.MapGet("/api/cities", () => 
+{
+    return cities.Select(c => new CityDTO
+    {
+        Id = c.Id,
+        Name = c.Name
+    });
+});
+
+app.MapPost("/api/dogs", (Dog dog) => 
+{
+    dog.Id = dogs.Max(d => d.Id) + 1;
+    dogs.Add(dog);
+
+    return Results.Created($"/api/dogs/{dog.Id}", new DogDTO
+    {
+        Id = dog.Id,
+        Name = dog.Name,
+        CityId = dog.CityId,
+        BreedId = dog.BreedId
+    });
+    
+});
+
+app.MapPost("/api/breeds", (Breed breed) =>
+{
+    breed.Id = breeds.Max(b => b.Id) + 1;
+    breeds.Add(breed);
+
+    return Results.Created($"/api/breeds/{breed.Id}", new BreedDTO
+    {
+        Id = breed.Id,
+        Type = breed.Type
+    });
 });
 
 

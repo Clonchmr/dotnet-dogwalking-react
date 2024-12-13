@@ -14,3 +14,29 @@
   width: 40%;
   margin: 0 auto;
 }
+
+.add-dog-btn {
+  float: right;
+  color: aliceblue;
+  font-weight: bold;
+  background-color: #457b9d;
+}
+
+.add-dog-btn:hover {
+  color: #457b9d;
+  background-color: aliceblue;
+}
+
+.delete-dog-btn {
+  background-color: #730237;
+}
+
+.delete-dog-btn:hover {
+  background-color: aliceblue;
+  color: #730237;
+  font-weight: bold;
+}
+
+.openModalBtn:hover {
+  border: 1px solid black;
+}

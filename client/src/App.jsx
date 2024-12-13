@@ -6,6 +6,7 @@ import { AllDogs } from "./Components/AllDogs";
 import { NavBar } from "./Components/Navbar/NavBar";
 import Home from "./Home";
 import { DogDetails } from "./Components/DogDetails";
+import { AddDog } from "./Forms/AddDog";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               }
             />
             <Route path="dogdetails/:dogId" element={<DogDetails />} />
+            <Route path="add-dog" element={<AddDog />} />
           </Route>
         </Routes>
       </>

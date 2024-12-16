@@ -19,16 +19,11 @@
   float: right;
   color: aliceblue;
   font-weight: bold;
-  background-color: #457b9d;
 }
 
 .add-dog-btn:hover {
   color: #457b9d;
   background-color: aliceblue;
-}
-
-.delete-dog-btn {
-  background-color: #730237;
 }
 
 .delete-dog-btn:hover {
@@ -39,4 +34,12 @@
 
 .openModalBtn:hover {
   border: 1px solid black;
+}
+
+.primary-btn-color {
+  background-color: #457b9d;
+}
+
+.danger-btn-color {
+  background-color: #730237;
 }

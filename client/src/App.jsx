@@ -8,6 +8,7 @@ import Home from "./Home";
 import { DogDetails } from "./Components/DogDetails";
 import { AddDog } from "./Forms/AddDog";
 import { AllWalkers } from "./Components/AllWalkers";
+import { AllCities } from "./Components/AllCities";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="dogdetails/:dogId" element={<DogDetails />} />
             <Route path="add-dog" element={<AddDog />} />
             <Route path="walkers" element={<AllWalkers />} />
+            <Route path="cities" element={<AllCities />} />
           </Route>
         </Routes>
       </>

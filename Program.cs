@@ -169,6 +169,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//-------------> GET Requests <------------
+
 app.MapGet("/api/hello", () =>
 {
     return new { Message = "Welcome to DeShawn's Dog Walking" };
@@ -296,6 +298,8 @@ app.MapGet("/api/walkers", () =>
     }).ToList();
 });
 
+// --------------->POST Requests<------------------
+
 app.MapPost("/api/dogs", (Dog dog) => 
 {
     dog.Id = dogs.Max(d => d.Id) + 1;
@@ -336,7 +340,20 @@ app.MapPost("/api/dogs/{id}/assign" , (int id, int walkerId) =>
     return Results.NoContent();
 });
 
-    
+    app.MapPost("/api/cities", (City city) =>
+    {
+        city.Id = cities.Max(c => c.Id) + 1;
+        cities.Add(city);
+
+        return Results.Created($"/api/cities/{city.Id}", new CityDTO 
+        {
+            Id = city.Id,
+            Name = city.Name
+        });
+        
+
+        
+    });
 
 
 app.Run();

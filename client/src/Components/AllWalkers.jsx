@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { getAllWalkers } from "../services/walkerServices";
+import { assignDogToWalker, getAllWalkers } from "../services/walkerServices";
 import {
   Button,
   Card,
   CardBody,
+  CardSubtitle,
   CardText,
   CardTitle,
   Form,
@@ -12,14 +13,27 @@ import {
   Label,
   ListGroup,
   ListGroupItem,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
 } from "reactstrap";
 import { getCities } from "../services/cityServices";
 import "../styles/walkers.css";
+import { getDogs } from "../services/dogServices";
+import { useNavigate } from "react-router-dom";
 
 export const AllWalkers = () => {
   const [walkers, setWalkers] = useState([]);
   const [filteredWalkers, setFilteredWalkers] = useState([]);
   const [cities, setCities] = useState([]);
+  const [dogsWithoutWalkers, setDogsWithoutWalkers] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [currentWalker, setCurrentWalker] = useState([]);
+  const [dogToAssign, setDogToAssign] = useState({});
+  const [activeCard, setActiveCard] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllWalkers().then((fetchedWalkers) => {
@@ -27,6 +41,10 @@ export const AllWalkers = () => {
       setFilteredWalkers(fetchedWalkers);
     });
     getCities().then(setCities);
+    getDogs().then((dogs) => {
+      const dogsWithNoWalker = dogs.filter((dog) => dog.walkerId === null);
+      setDogsWithoutWalkers(dogsWithNoWalker);
+    });
   }, []);
 
   const handleFilterWalkers = (e) => {
@@ -49,6 +67,84 @@ export const AllWalkers = () => {
     });
 
     return citiesArr;
+  };
+
+  const handleCardClick = (cardId) => {
+    setActiveCard(cardId);
+  };
+
+  const handleAssignDog = () => {
+    assignDogToWalker(dogToAssign.id, currentWalker.id).then(
+      navigate(`/dogdetails/${dogToAssign.id}`)
+    );
+  };
+
+  const addDogModal = (walker) => {
+    const toggle = () => {
+      setModal(!modal);
+      setCurrentWalker(walker);
+      setActiveCard(false);
+      setDogToAssign({});
+    };
+
+    const dogsInCity = dogsWithoutWalkers.filter((dog) =>
+      currentWalker.walkerCities?.some(
+        (walkerCity) => walkerCity.cityId === dog.cityId
+      )
+    );
+
+    return (
+      <div>
+        <Button
+          className="primary-btn-color mb-3 dog-modal-btn"
+          onClick={toggle}
+        >
+          Add Dog
+        </Button>
+        <Modal isOpen={modal} toggle={toggle}>
+          <ModalHeader toggle={toggle}>
+            Assign Dog to {currentWalker.name}
+          </ModalHeader>
+          <ModalBody>
+            {dogsInCity.length !== 0 ? (
+              dogsInCity.map((dc) => (
+                <Card
+                  key={dc.id}
+                  className={`mb-2 add-dog-card ${
+                    activeCard === dc.id ? "clicked" : ""
+                  }`}
+                  onClick={() => {
+                    setDogToAssign(dc);
+                    handleCardClick(dc.id);
+                  }}
+                >
+                  <CardBody className="d-flex flex-row justify-content-around align-items-center">
+                    <CardTitle className="d-flex flex-column">
+                      {dc.name}
+                    </CardTitle>
+                    <CardSubtitle className="text-muted d-flex flex-column">
+                      {dc.city.name}
+                    </CardSubtitle>
+                  </CardBody>
+                </Card>
+              ))
+            ) : (
+              <p>
+                There are currently no unassigned dogs in this walkers cities.
+              </p>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <Button className="primary-btn-color" onClick={handleAssignDog}>
+              Add
+            </Button>
+            <Button className="danger-btn-color" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
   };
 
   return (
@@ -99,7 +195,7 @@ export const AllWalkers = () => {
                   </ListGroup>
                 </div>
                 <div className="d-flex flex-column justify-content-center p-3">
-                  <Button className="mb-5 primary-btn-color">Add Dog</Button>
+                  {addDogModal(w)}
                   <Button className="danger-btn-color">Remove Walker</Button>
                 </div>
               </Card>

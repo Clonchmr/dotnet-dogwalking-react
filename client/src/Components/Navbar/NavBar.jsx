@@ -10,6 +10,9 @@ export const NavBar = () => {
             <NavItem>
               <NavLink href="/walkers">Walkers</NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/cities">Cities</NavLink>
+            </NavItem>
           </Nav>
         </Navbar>
       </>

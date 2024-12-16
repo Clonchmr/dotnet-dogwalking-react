@@ -21,12 +21,12 @@
   font-weight: bold;
 }
 
-.add-dog-btn:hover {
+.primary-btn-color:hover {
   color: #457b9d;
   background-color: aliceblue;
 }
 
-.delete-dog-btn:hover {
+.danger-btn-color:hover {
   background-color: aliceblue;
   color: #730237;
   font-weight: bold;

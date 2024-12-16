@@ -1,0 +1,14 @@
+.walker-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.walker-card {
+  width: 40%;
+}
+
+.city-select {
+  margin: 2rem 0;
+  width: 30%;
+}

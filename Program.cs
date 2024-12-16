@@ -266,6 +266,36 @@ app.MapGet("/api/cities", () =>
     });
 });
 
+app.MapGet("/api/walkers", () =>  
+{
+    return walkers.Select(w => 
+    {
+        List<Dog> walkerDogs = dogs.Where(d => d.WalkerId == w.Id).ToList();
+        List<WalkerCity> walkersCities = walkerCities.Where(wc => wc.WalkerId == w.Id).ToList();
+
+        return new WalkerDTO 
+        {
+            Id = w.Id,
+            Name = w.Name,
+            Dogs = walkerDogs.Count == 0 ? null : walkerDogs.Select(wd => new DogDTO
+            {
+                Id = wd.Id,
+                Name = wd.Name,
+                WalkerId = w.Id,
+                CityId = wd.CityId,
+                BreedId = wd.BreedId
+            }).ToList(),
+            WalkerCities = walkersCities.Select(wc => new WalkerCityDTO
+            {
+                Id = wc.Id,
+                WalkerId = wc.WalkerId,
+                CityId = wc.CityId
+            }).ToList()
+            
+        };
+    }).ToList();
+});
+
 app.MapPost("/api/dogs", (Dog dog) => 
 {
     dog.Id = dogs.Max(d => d.Id) + 1;

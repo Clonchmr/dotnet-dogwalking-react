@@ -16,7 +16,7 @@ export const AllDogs = () => {
   return (
     <div className="container">
       <Button
-        className="add-dog-btn"
+        className="add-dog-btn primary-btn-color"
         onClick={() => {
           navigate("/add-dog");
         }}
@@ -40,7 +40,9 @@ export const AllDogs = () => {
                 <CardSubtitle className="mb-4 text-muted" tag="h6">
                   {dog.breed.type}
                 </CardSubtitle>
-                <Button className="delete-dog-btn">Remove Dog</Button>
+                <Button className="delete-dog-btn danger-btn-color">
+                  Remove Dog
+                </Button>
               </CardBody>
             </Card>
           );

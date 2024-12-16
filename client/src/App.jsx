@@ -7,6 +7,7 @@ import { NavBar } from "./Components/Navbar/NavBar";
 import Home from "./Home";
 import { DogDetails } from "./Components/DogDetails";
 import { AddDog } from "./Forms/AddDog";
+import { AllWalkers } from "./Components/AllWalkers";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             />
             <Route path="dogdetails/:dogId" element={<DogDetails />} />
             <Route path="add-dog" element={<AddDog />} />
+            <Route path="walkers" element={<AllWalkers />} />
           </Route>
         </Routes>
       </>

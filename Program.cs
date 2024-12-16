@@ -323,5 +323,20 @@ app.MapPost("/api/breeds", (Breed breed) =>
     });
 });
 
+app.MapPost("/api/dogs/{id}/assign" , (int id, int walkerId) =>
+{
+    Dog dogToAssign = dogs.FirstOrDefault(d => d.Id == id);
+
+    if(dogToAssign == null)
+    {
+        return Results.NotFound();
+    }
+
+    dogToAssign.WalkerId = walkerId;
+    return Results.NoContent();
+});
+
+    
+
 
 app.Run();

@@ -12,3 +12,16 @@
   margin: 2rem 0;
   width: 30%;
 }
+
+.add-dog-card {
+  cursor: pointer;
+}
+
+.clicked {
+  background-color: #faedcd;
+  box-shadow: 0 0 0.1rem black;
+}
+
+.dog-modal-btn {
+  width: 100%;
+}

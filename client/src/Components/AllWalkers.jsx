@@ -21,7 +21,7 @@ import {
 import { getCities } from "../services/cityServices";
 import "../styles/walkers.css";
 import { getDogs } from "../services/dogServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const AllWalkers = () => {
   const [walkers, setWalkers] = useState([]);
@@ -179,7 +179,13 @@ export const AllWalkers = () => {
               >
                 <div className="flex-grow-1">
                   <CardBody>
-                    <CardTitle tag="h5" className="mb-4">
+                    <CardTitle
+                      tag="h5"
+                      className="mb-4"
+                      onClick={() => {
+                        navigate(`/walkers/edit/${w.id}`);
+                      }}
+                    >
                       {w.name}
                     </CardTitle>
                     <CardText className="text-muted">Walking in</CardText>
@@ -187,7 +193,7 @@ export const AllWalkers = () => {
                   <ListGroup flush>
                     {findWalkerCities(w.walkerCities, cities).map((city) => {
                       return (
-                        <ListGroupItem key={city.id}>
+                        <ListGroupItem key={city?.id}>
                           {city?.name}
                         </ListGroupItem>
                       );

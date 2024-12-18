@@ -78,9 +78,13 @@ export const AddDog = () => {
             </Form>
           </ModalBody>
           <ModalFooter>
-            <Button onClick={handleAddBreed}>Submit</Button>
+            <Button className="primary-btn-color" onClick={handleAddBreed}>
+              Submit
+            </Button>
             {""}
-            <Button onClick={toggle}>Cancel</Button>
+            <Button className="danger-btn-color" onClick={toggle}>
+              Cancel
+            </Button>
           </ModalFooter>
         </Modal>
       </div>

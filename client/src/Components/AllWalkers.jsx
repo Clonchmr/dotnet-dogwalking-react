@@ -25,7 +25,7 @@ import {
 import { getCities } from "../services/cityServices";
 import "../styles/walkers.css";
 import { getDogs } from "../services/dogServices";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const AllWalkers = () => {
   const [walkers, setWalkers] = useState([]);

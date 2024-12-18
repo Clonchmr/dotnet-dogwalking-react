@@ -153,7 +153,12 @@ export const AddDog = () => {
           })}
         </Input>
       </FormGroup>
-      <Button onClick={handleAddDog}>Add</Button>
+      <Button
+        className="primary-btn-color add-dog-form-btn"
+        onClick={handleAddDog}
+      >
+        Add
+      </Button>
     </Form>
   );
 };

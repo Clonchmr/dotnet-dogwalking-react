@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { assignDogToWalker, getAllWalkers } from "../services/walkerServices";
+import {
+  assignDogToWalker,
+  getAllWalkers,
+  removeWalker,
+} from "../services/walkerServices";
 import {
   Button,
   Card,
@@ -45,7 +49,7 @@ export const AllWalkers = () => {
       const dogsWithNoWalker = dogs.filter((dog) => dog.walkerId === null);
       setDogsWithoutWalkers(dogsWithNoWalker);
     });
-  }, []);
+  }, [walkers.length]);
 
   const handleFilterWalkers = (e) => {
     const filteredWalkersArr = walkers.filter((w) =>
@@ -77,6 +81,14 @@ export const AllWalkers = () => {
     assignDogToWalker(dogToAssign.id, currentWalker.id).then(
       navigate(`/dogdetails/${dogToAssign.id}`)
     );
+  };
+
+  const handleDeleteWalker = (walkerId) => {
+    removeWalker(walkerId)
+      .then(getAllWalkers())
+      .then((walkers) => {
+        setWalkers(walkers);
+      });
   };
 
   const addDogModal = (walker) => {
@@ -181,7 +193,7 @@ export const AllWalkers = () => {
                   <CardBody>
                     <CardTitle
                       tag="h5"
-                      className="mb-4"
+                      className="mb-4 hover-cursor"
                       onClick={() => {
                         navigate(`/walkers/edit/${w.id}`);
                       }}
@@ -202,7 +214,14 @@ export const AllWalkers = () => {
                 </div>
                 <div className="d-flex flex-column justify-content-center p-3">
                   {addDogModal(w)}
-                  <Button className="danger-btn-color">Remove Walker</Button>
+                  <Button
+                    className="danger-btn-color"
+                    onClick={() => {
+                      handleDeleteWalker(w.id);
+                    }}
+                  >
+                    Remove Walker
+                  </Button>
                 </div>
               </Card>
             );

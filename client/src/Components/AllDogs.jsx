@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getDogs } from "../services/dogServices";
+import { getDogs, removeDog } from "../services/dogServices";
 import { Button, Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import "../styles/dogs.css";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +9,17 @@ export const AllDogs = () => {
 
   useEffect(() => {
     getDogs().then(setAllDogs);
-  }, [allDogs.length]);
+  }, []);
 
   const navigate = useNavigate();
+
+  const handleRemoveDog = (dogId) => {
+    removeDog(dogId).then(
+      getDogs().then((dog) => {
+        setAllDogs(dog);
+      })
+    );
+  };
 
   return (
     <div className="container">
@@ -29,7 +37,7 @@ export const AllDogs = () => {
             <Card key={dog.id} className="dogCard">
               <CardBody>
                 <CardTitle
-                  className="mb-4"
+                  className="mb-4 hover-cursor"
                   tag="h5"
                   onClick={() => {
                     navigate(`/dogdetails/${dog.id}`);
@@ -40,7 +48,12 @@ export const AllDogs = () => {
                 <CardSubtitle className="mb-4 text-muted" tag="h6">
                   {dog.breed.type}
                 </CardSubtitle>
-                <Button className="delete-dog-btn danger-btn-color">
+                <Button
+                  className="delete-dog-btn danger-btn-color"
+                  onClick={() => {
+                    handleRemoveDog(dog.id);
+                  }}
+                >
                   Remove Dog
                 </Button>
               </CardBody>

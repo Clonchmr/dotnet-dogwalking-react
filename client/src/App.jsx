@@ -1,22 +1,46 @@
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
+import { AllDogs } from "./Components/AllDogs";
+import { NavBar } from "./Components/Navbar/NavBar";
+import Home from "./Home";
+import { DogDetails } from "./Components/DogDetails";
+import { AddDog } from "./Forms/AddDog";
+import { AllWalkers } from "./Components/AllWalkers";
+import { AllCities } from "./Components/AllCities";
+import { EditWalker } from "./Forms/EditWalker";
 
 function App() {
   return (
     <div className="App">
       <>
-        <Navbar color="light" expand="md">
-          <Nav navbar>
-            <NavbarBrand href="/">🐕‍🦺 🐩 DeShawn's Dog Walking</NavbarBrand>
-            <NavItem>
-              <NavLink href="/walkers">Walkers</NavLink>
-            </NavItem>
-          </Nav>
-        </Navbar>
-        <Outlet />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <NavBar />
+                <Outlet />
+              </>
+            }
+          >
+            <Route
+              index
+              element={
+                <>
+                  <Home />
+                  <AllDogs />
+                </>
+              }
+            />
+            <Route path="dogdetails/:dogId" element={<DogDetails />} />
+            <Route path="add-dog" element={<AddDog />} />
+            <Route path="walkers" element={<AllWalkers />} />
+            <Route path="cities" element={<AllCities />} />
+            <Route path="walkers/edit/:walkerId" element={<EditWalker />} />
+          </Route>
+        </Routes>
       </>
     </div>
   );

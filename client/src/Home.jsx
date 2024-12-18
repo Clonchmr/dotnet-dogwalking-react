@@ -14,5 +14,5 @@ export default function Home() {
       });
   }, []);
 
-  return <p>{greeting.message}</p>;
+  return <h1 className="mt-4">{greeting.message}</h1>;
 }

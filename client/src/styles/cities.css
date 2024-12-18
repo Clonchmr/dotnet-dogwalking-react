@@ -1,0 +1,9 @@
+.city-card {
+  width: 45%;
+}
+.cities-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}

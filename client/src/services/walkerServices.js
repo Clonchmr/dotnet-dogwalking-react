@@ -41,3 +41,9 @@ export const updateWalker = (walkerObj) => {
     body: JSON.stringify(walkerObj.name),
   });
 };
+
+export const removeWalker = (walkerId) => {
+  return fetch(`/api/walkers/${walkerId}`, {
+    method: "DELETE",
+  });
+};

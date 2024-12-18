@@ -17,3 +17,9 @@ export const addNewDog = (dogObj) => {
     return response.json();
   });
 };
+
+export const removeDog = (dogId) => {
+  return fetch(`/api/dogs/${dogId}`, {
+    method: "DELETE",
+  });
+};

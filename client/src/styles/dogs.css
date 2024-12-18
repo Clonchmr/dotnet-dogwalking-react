@@ -24,6 +24,7 @@
 .primary-btn-color:hover {
   color: #457b9d;
   background-color: aliceblue;
+  font-weight: bold;
 }
 
 .danger-btn-color:hover {
@@ -42,4 +43,12 @@
 
 .danger-btn-color {
   background-color: #730237;
+}
+
+.add-dog-form-btn {
+  width: 13%;
+}
+
+.hover-cursor {
+  cursor: pointer;
 }

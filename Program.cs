@@ -189,7 +189,7 @@ app.MapGet("/api/dogs", () =>
         {
         Id = d.Id,
         Name = d.Name,
-        WalkerId = d.WalkerId,
+        WalkerId = d.WalkerId == null ? null : d.WalkerId,
         Walker = d.WalkerId == null ? null : new WalkerDTO
         {
             Id = dogWalker.Id,
@@ -437,5 +437,35 @@ app.MapPost("/api/dogs/{id}/assign" , (int id, int walkerId) =>
         return Results.NoContent();
     });
 
+app.MapDelete("/api/dogs/{id}", (int id) =>
+{
+    Dog dogToDelete = dogs.FirstOrDefault(d => d.Id == id);
+
+    if(dogToDelete == null)
+    {
+        return Results.NotFound();
+    }
+
+    dogs.Remove(dogToDelete);
+    return Results.NoContent();
+});
+
+app.MapDelete("/api/walkers/{id}", (int id) => 
+{
+    Walker walkerToDelete = walkers.FirstOrDefault(w => w.Id == id);
+    List<Dog> walkersDogs = dogs.Where(d => d.WalkerId == id).ToList();
+    foreach (Dog dog in walkersDogs)
+    {
+        dog.WalkerId = null;
+    }
+
+    if(walkerToDelete == null)
+    {
+        return Results.NotFound();
+    }
+
+    walkers.Remove(walkerToDelete);
+    return Results.NoContent();
+});
 
 app.Run();

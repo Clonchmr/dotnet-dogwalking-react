@@ -11,7 +11,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { getCities } from "../services/cityServices";
 
 export const EditWalker = () => {
-  const [currentWalker, setCurrentWalker] = useState({});
+  const [currentWalker, setCurrentWalker] = useState({ name: "" });
   const [allCities, setAllCities] = useState([]);
   const [cityChoices, setCityChoices] = useState(
     currentWalker?.walkerCities?.map((wc) => wc.cityId) || []
@@ -77,7 +77,7 @@ export const EditWalker = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-5">
       <Form>
         <FormGroup>
           <Label for="update-walker-name">Update Name</Label>
@@ -93,10 +93,11 @@ export const EditWalker = () => {
             }}
           />
         </FormGroup>
+        <Label>Edit Cities</Label>
         <FormGroup>
           {allCities.map((city) => {
             return (
-              <Label key={city.id}>
+              <Label className="city-choice-options" key={city.id}>
                 <Input
                   type="checkbox"
                   name="cityChoice"
